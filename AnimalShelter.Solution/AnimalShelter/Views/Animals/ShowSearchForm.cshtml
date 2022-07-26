@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+@using AnimalShelter.Models;
+@model List<AnimalShelter.Models.Animal>;
+
+<h1>Animals!</h1>
+
+<form action="/Animals/ShowSearchResults" method="post">
+  <label>
+    <input type="radio" name="searchProperty" value="Breed" checked>
+    Breed
+  </label><br>
+  <label>
+    <input type="radio" name="searchProperty" value="Name">
+    Name
+  </label><br>
+  <label>
+    <input type="radio" name="searchProperty" value="Species">
+    Species
+  </label><br>
+  <label for="searchPhrase">Search Phrase: </label>
+  <input name="searchPhrase" id="searchPhrase" type="text">
+  <button type="submit">Search!</button>
+</form>
+<p>@Html.ActionLink("Back to list", "Index")</p> 
+
+    
+
+
+@* <input id=”SelectedDepartment” name=”Breed” type=”radio” value=”Breed″>
+  <input id=”SelectedDepartment” name=”Name” type=”radio” value=”Name″>
+  <input id=”SelectedDepartment” name=”Species” type=”radio” value=”Species″> *@

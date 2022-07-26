@@ -3,6 +3,7 @@ using AnimalShelter.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace AnimalShelter.Controllers
 {
   public class AnimalsController : Controller
@@ -20,11 +21,7 @@ namespace AnimalShelter.Controllers
         .OrderBy(x => x.Breed)
         .ThenBy(x => x.DateAdmit)
         .ToList();
-    
-      // .OrderBy(model => model.Breed)
-      // .Select(model => model.ToSelectListItem());
-      // .ToList();
-
+  
       // IEnumerable<Animal> model = unsortedModel.OrderBy(p => p.Breed);
 
       return View(model);
@@ -47,6 +44,36 @@ namespace AnimalShelter.Controllers
     {
       Animal thisAnimal = _db.Animals.FirstOrDefault(animal => animal.AnimalId == id);
       return View(thisAnimal);
+    }
+
+    [HttpGet]
+    public ActionResult ShowSearchForm()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult ShowSearchResults(string searchProperty, string searchPhrase)
+    {
+      if (searchProperty == "Breed")
+      {
+        List<Animal> model = _db.Animals.Where(p => p.Breed.Contains(searchPhrase)).ToList(); 
+        return View("Index", model);    
+      } 
+      else if (searchProperty == "Name")
+      {
+        List<Animal> model = _db.Animals.Where(p => p.Name.Contains(searchPhrase)).ToList();
+        return View("Index", model);
+      }
+      else if (searchProperty == "Species")
+      {
+        List<Animal> model = _db.Animals.Where(p => p.Species.Contains(searchPhrase)).ToList();
+        return View("Index", model);
+      }
+      else 
+      {
+        return View();
+      }
     }
   }
 }
